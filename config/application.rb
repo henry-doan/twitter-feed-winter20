@@ -34,12 +34,6 @@ module TwitterFeedWinter20
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    module TwitterFeeds
-      class Application < Rails::Application
-        config.load_defaults 5.2
-        config.api_only = true
-        config.autoload_paths << Rails.root.join('lib')
-      end
-    end
+    config.autoload_paths << Rails.root.join('lib')
   end
 end

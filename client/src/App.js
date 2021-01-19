@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  const [tweets, setTweet] = useState([])
+
+  useEffect( () => {
+    axios.get('/api/tweets')
+      .then( res => {
+        setTweet(res.data)
+      })
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <h1>Tweets</h1>
+      {
+        tweets.map( t => 
+          <div key={t.id}>
+            <img src={t.user.profile_image_url} />
+            <h3>{t.user.name}</h3>
+            <p>{t.text}</p>
+          </div>
+        )
+      }
+    </>
+  )
 }
-
 export default App;
